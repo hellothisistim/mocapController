@@ -1,0 +1,459 @@
+{
+  "version": "1.1.6",
+  "modules": [
+    {
+      "id": 11,
+      "plugin": "JW-Modules",
+      "version": "1.0.21",
+      "model": "FullScope",
+      "params": [
+        {
+          "id": 0,
+          "value": 0.0950001627
+        },
+        {
+          "id": 1,
+          "value": -0.5
+        },
+        {
+          "id": 2,
+          "value": -0.0700001121
+        },
+        {
+          "id": 3,
+          "value": -6.78000736
+        },
+        {
+          "id": 4,
+          "value": -6.0
+        },
+        {
+          "id": 5,
+          "value": 0.0
+        },
+        {
+          "id": 6,
+          "value": 0.0
+        },
+        {
+          "id": 7,
+          "value": 0.0
+        },
+        {
+          "id": 8,
+          "value": 0.0
+        }
+      ],
+      "leftModuleId": 50,
+      "rightModuleId": 18,
+      "data": {
+        "lissajous": 0,
+        "external": 0
+      },
+      "width": 135.0,
+      "height": 380.0,
+      "pos": [
+        10,
+        0
+      ]
+    },
+    {
+      "id": 18,
+      "plugin": "JW-Modules",
+      "version": "1.0.21",
+      "model": "FullScope",
+      "params": [
+        {
+          "id": 0,
+          "value": 0.0950001627
+        },
+        {
+          "id": 1,
+          "value": -0.5
+        },
+        {
+          "id": 2,
+          "value": -0.0700001121
+        },
+        {
+          "id": 3,
+          "value": -6.78000736
+        },
+        {
+          "id": 4,
+          "value": -6.0
+        },
+        {
+          "id": 5,
+          "value": 0.0
+        },
+        {
+          "id": 6,
+          "value": 0.0
+        },
+        {
+          "id": 7,
+          "value": 0.0
+        },
+        {
+          "id": 8,
+          "value": 0.0
+        }
+      ],
+      "leftModuleId": 11,
+      "data": {
+        "lissajous": 0,
+        "external": 0
+      },
+      "width": 135.0,
+      "height": 380.0,
+      "pos": [
+        19,
+        0
+      ]
+    },
+    {
+      "id": 19,
+      "plugin": "JW-Modules",
+      "version": "1.0.21",
+      "model": "FullScope",
+      "params": [
+        {
+          "id": 0,
+          "value": 0.0950001627
+        },
+        {
+          "id": 1,
+          "value": -0.5
+        },
+        {
+          "id": 2,
+          "value": -0.0700001121
+        },
+        {
+          "id": 3,
+          "value": -6.78000736
+        },
+        {
+          "id": 4,
+          "value": -6.0
+        },
+        {
+          "id": 5,
+          "value": 0.0
+        },
+        {
+          "id": 6,
+          "value": 0.0
+        },
+        {
+          "id": 7,
+          "value": 0.0
+        },
+        {
+          "id": 8,
+          "value": 0.0
+        }
+      ],
+      "rightModuleId": 51,
+      "data": {
+        "lissajous": 0,
+        "external": 0
+      },
+      "width": 135.0,
+      "height": 380.0,
+      "pos": [
+        29,
+        0
+      ]
+    },
+    {
+      "id": 50,
+      "plugin": "Core",
+      "version": "1.1.6",
+      "model": "MIDICCToCVInterface",
+      "params": [],
+      "rightModuleId": 11,
+      "data": {
+        "ccs": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15
+        ],
+        "values": [
+          127,
+          90,
+          0,
+          0,
+          127,
+          111,
+          104,
+          126,
+          127,
+          5,
+          88,
+          104,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "midi": {
+          "driver": 1,
+          "deviceName": "IAC Driver Bus 1",
+          "channel": 0
+        }
+      },
+      "pos": [
+        0,
+        0
+      ]
+    },
+    {
+      "id": 51,
+      "plugin": "JW-Modules",
+      "version": "1.0.21",
+      "model": "FullScope",
+      "params": [
+        {
+          "id": 0,
+          "value": 0.0950001627
+        },
+        {
+          "id": 1,
+          "value": -0.5
+        },
+        {
+          "id": 2,
+          "value": -0.0700001121
+        },
+        {
+          "id": 3,
+          "value": -6.78000736
+        },
+        {
+          "id": 4,
+          "value": -6.0
+        },
+        {
+          "id": 5,
+          "value": 0.0
+        },
+        {
+          "id": 6,
+          "value": 0.0
+        },
+        {
+          "id": 7,
+          "value": 0.0
+        },
+        {
+          "id": 8,
+          "value": 0.0
+        }
+      ],
+      "leftModuleId": 19,
+      "data": {
+        "lissajous": 0,
+        "external": 0
+      },
+      "width": 135.0,
+      "height": 380.0,
+      "pos": [
+        38,
+        0
+      ]
+    }
+  ],
+  "cables": [
+    {
+      "id": 152,
+      "outputModuleId": 50,
+      "outputId": 0,
+      "inputModuleId": 11,
+      "inputId": 0,
+      "color": "#0c8e15"
+    },
+    {
+      "id": 153,
+      "outputModuleId": 50,
+      "outputId": 1,
+      "inputModuleId": 11,
+      "inputId": 1,
+      "color": "#c91847"
+    },
+    {
+      "id": 154,
+      "outputModuleId": 50,
+      "outputId": 2,
+      "inputModuleId": 18,
+      "inputId": 0,
+      "color": "#0986ad"
+    },
+    {
+      "id": 155,
+      "outputModuleId": 50,
+      "outputId": 3,
+      "inputModuleId": 18,
+      "inputId": 1,
+      "color": "#c9b70e"
+    },
+    {
+      "id": 156,
+      "outputModuleId": 50,
+      "outputId": 4,
+      "inputModuleId": 19,
+      "inputId": 0,
+      "color": "#0c8e15"
+    },
+    {
+      "id": 157,
+      "outputModuleId": 50,
+      "outputId": 5,
+      "inputModuleId": 19,
+      "inputId": 1,
+      "color": "#c91847"
+    },
+    {
+      "id": 158,
+      "outputModuleId": 50,
+      "outputId": 6,
+      "inputModuleId": 51,
+      "inputId": 0,
+      "color": "#0986ad"
+    },
+    {
+      "id": 159,
+      "outputModuleId": 50,
+      "outputId": 7,
+      "inputModuleId": 51,
+      "inputId": 1,
+      "color": "#c9b70e"
+    }
+  ]
+}

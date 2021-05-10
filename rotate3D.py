@@ -1,6 +1,6 @@
 import numpy as np
 import math
-
+import logging
 
 def angle_between(p1, p2):
 	"""Angle between two points and origin in degrees.
@@ -11,101 +11,127 @@ def angle_between(p1, p2):
 	ang2 = np.arctan2(*p2[::-1])
 	return np.rad2deg((ang1 - ang2) % (2 * np.pi))
 
-def translateToOrigin(points):
-	"""Shift the first point in a given list of points to the origin. Apply 
-	the same shift to the rest of the points in the list. Return a list of 
-	the new positions in the same order."""
+def translateToOrigin(points, originName):
+	"""Shift the origin point to the origin. Apply 
+	the same shift to the rest of the points. """
 
-	shiftVector = 0 - points[0]
+	try:
+		assert originName in points.keys()
+	except AssertionError as e:
+		raise AssertionError(originName + " is not in the point cloud.")
 
-	out = []
-	for point in points:
-		out.append(point + shiftVector)
+	shiftVector = 0 - points[originName]
+
+	out = {}
+	for name in points.keys():
+		out[name] = points[name] + shiftVector
 	return out
 
-def rotateToXAxis(points):
-	"""Given a list of 3D points where the first sits on the origin (0,0,0), the points will all be rotated around the Z and Y axes so that the the second point will sit on the X axis. Return a list of 
-	the new positions in the same order."""
+def rotateToXAxis(points, xPosName):
+	"""Rotate the point cloud so that the xPos point sits on the X axis."""
 	
-	assert points[0].sum() == 0
-
 	# Source for rotation math: 
 	# https://www.geeksforgeeks.org/computer-graphics-3d-rotation-transformations/
 
-	#First, rotate around Z axis. 
-	zAngle = 0 - angle_between(points[1][:2], np.array([1,0]))
-	zAngleRad = math.radians(zAngle)
-	#print('z axis roatation degrees', zAngle, 'radians', zAngleRad)
+	try:
+		assert xPosName in points.keys()
+	except AssertionError as e:
+		logging.critical(xPosName + " is not in the point cloud.")
 
-	zRotPoints = []
-	for point in points:
+	#First, rotate around Z axis. 
+	zAngle = 0 - angle_between(points[xPosName][:2], np.array([1,0]))
+	zAngleRad = math.radians(zAngle)
+	# logging.debug('__z axis roatation in degrees: ' + str(zAngle) + '  in radians: ' + str(zAngleRad))
+
+	zRotPoints = {}
+	for name in points.keys():
 		#x = xo * cos - yo * sin
-		x = point[0] * math.cos(zAngleRad) - point[1] * math.sin(zAngleRad)
+		x = points[name][0] * math.cos(zAngleRad) - points[name][1] * math.sin(zAngleRad)
 		#y = xo * sin + yo * cos
-		y = point[0] * math.sin(zAngleRad) + point[1] * math.cos(zAngleRad)
-		#print(point, x, y)
-		zRotPoints.append(np.array([x, y, point[2]]))
+		y = points[name][0] * math.sin(zAngleRad) + points[name][1] * math.cos(zAngleRad)
+		zRotPoints[name] = np.array([x, y, points[name][2]])
+	# logging.debug("finished Z rotation. " + str(zRotPoints))
 
 	#Then, rotate around Y axis.
-	yAngle = angle_between(np.array([zRotPoints[1][0], zRotPoints[1][2]]), 
+	yAngle = angle_between(np.array([zRotPoints[xPosName][0], zRotPoints[xPosName][2]]), 
 		np.array([1,0]))
 	yAngleRad = math.radians(yAngle)
-	#print('y axis roatation degrees', yAngle, 'radians', yAngleRad)
+	# logging.debug('__y axis roatation degrees: ' + str(yAngle) + ' radians: ' + str(yAngleRad))
 
-	outPoints = []
-	for point in zRotPoints:
+	# TODO: I managed to mess up this part when changing to the dict representation of the point cloud. Fix it.
+
+	outPoints = {}
+	for name in zRotPoints.keys():
+		xIn, yIn, zIn = zRotPoints[name]
 		#x = xo * cos + zo * sin
-		x = point[0] * math.cos(yAngleRad) + point[2] * math.sin(yAngleRad)
+		xOut = xIn * math.cos(yAngleRad) + zIn * math.sin(yAngleRad)
+		yOut = yIn
 		#z = zo * cos - xo * sin
-		z = point[2] * math.cos(yAngleRad) - point[0] * math.sin(yAngleRad)
-		#print(point, x, z)
-		outPoints.append(np.array([x, point[1], z]))
+		zOut = zIn * math.cos(yAngleRad) - xIn * math.sin(yAngleRad)
+		outPoints[name] = np.array([xOut, yOut, zOut])
+	# logging.debug("finished Y rotation. " + str(outPoints))
 
 	return outPoints
 
-def normalize(points):
-	"""Given a list of points where the first sits on the origin (0,0,0), 
-	and the second sits on the X axis, scale all points from the origin so 
-	that the second point has a magnitude of 1. Return a list of the new 
-	positions in the same order."""
+def normalize(points, originName, xPosName):
+	"""Translates, rotates, and scales a point cloud so that the given origin 
+	point sits on the origin and the xPos point sits at +1 on the X axis.
+	
+	Takes three things: 1. a dict of points in 3D space, where the keys are the 
+	points' names and the location in space is stored as a numpy array, 2. the 
+	name of the point to place at the origin (0,0,0), and 3. the name of the point that will end up at +1 on the X axis (1,0,0). 
 
-	assert points[0].sum() == 0
-	assert points[1][0] > 0
-	assert points[1][1] < 0.01
-	assert points[1][2] < 0.01
+	Return a dict of the points in their new positions.
+	"""
 
-	mag = np.linalg.norm(points[1])
+	for item in [originName, xPosName]:
+		try:
+			assert item in points.keys()
+		except AssertionError as e:
+			raise AssertionError(originName + " is not in the point cloud.")
+
+	# First, translate the cloud so that the origin point sits on the origin (0,0,0).
+	points = translateToOrigin(points, originName)
+	# logging.debug("After translateToOrigin:" + str(points))
+
+	# Then, rotate so that the xPos point sits on the X axis.
+	points = rotateToXAxis(points, xPosName)
+	# logging.debug("After rotateToXAxis:" + str(points))
+
+
+	# Then, scale the cloud so that the xPos point sits at +1 on the X axis.
+	assert points[originName].sum() == 0
+	assert points[xPosName][0] > 0
+	assert points[xPosName][1] < 0.01
+	assert points[xPosName][2] < 0.01
+
+	mag = np.linalg.norm(points[xPosName])
 	scale = 1 / mag
 
-	outPoints = []
-	for point in points:
-		point *= scale
-		outPoints.append(point)
-
+	outPoints = {}
+	for name in points.keys():
+		outPoints[name] = points[name] * scale
 	return points
 
-def prepPoints(points):
-	"""Given a list of points where the first point is to be the origin and the second point is to sit on the positive X axis, reposition, rotate, and scale the point cloud so the origin point sits at (0,0,0), the xPos point sits on the x axis at (1,0,0), and the rest of the points are transformed in the same manner.
-
-	Return a list of transformed points."""
-
-	points = translateToOrigin(points)
-	points = rotateToXAxis(points)
-	points = normalize(points)
-
-	return points
 
 
 if __name__ == "__main__":
 
-	markerApos = np.array([-461, 123, 231])
-	markerBpos = markerApos + np.array([100, 100, 100])
-	markerCpos = np.array([400,400,400])
-	points = [markerApos, markerBpos, markerCpos]
+	logging.basicConfig(level=logging.DEBUG)
 
+	logging.debug("Checking normalize.")
+	markers = {'rbA': np.array([ 1819.56044853, -1204.24919905, -30.55150338]), 
+			   'rbB': np.array([1804.77464868, 1874.82370907, 10.63022218]), 
+			   'rbC': np.array([314, 345, 567]),
+			   'rbD': np.array([456, 678, 890]), 
+			   'rbE': np.array([ -19.07449426, 685.0376895, 1066.10069388])
+			   }
+	originName = 'rbA'
+	xPosName = 'rbB'
+	normal = normalize(markers, originName, xPosName)
+	assert normal[originName].sum() == 0
+	assert normal[xPosName][0] > 0
+	assert normal[xPosName][1] < 0.01
+	assert normal[xPosName][2] < 0.01
+	logging.debug("Pass: normalize")
 
-	print('start', points)
-
-	points = prepPoints(points)
-
-	print('prepped', points)
