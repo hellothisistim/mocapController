@@ -118,19 +118,19 @@ def getMarkerLocations():
 def simulateMarkerLocations():
 
 	markers = {args.origin: np.array([0, 0, 0]),
-			   args.xPos: np.array([2.2, 0, 0])}
+			   args.xPos: np.array([1, 0, 0])}
 
 	# The first other marker switches on and off.
 	if (time.time() % 10) > 1:
-		markers['rbC'] = np.array([math.sin(time.time()), math.cos(time.time()), 0])
+		markers['rbC'] = np.array([(math.sin(time.time())+1)/2, (math.cos(time.time())+1)/2, 0])
 
-	markers['rbD'] = np.array([(math.sin(time.time() / 10) + 1) / 2, 
-							   (math.cos(time.time() / 10) + 1) / 2, 
+	markers['rbD'] = np.array([(math.sin(time.time() / 3) + 1) / 2, 
+							   (math.cos(time.time() / 3) + 1) / 2, 
 							   time.time() - math.floor(time.time())])
-	markers['rbE'] = np.array([(math.sin(time.time() / 100) + 1) / 2, 
-							   (math.cos(time.time() / 100) + 1) / 2, 
+	markers['rbE'] = np.array([(math.sin(time.time() / 5) + 1) / 2, 
+							   (math.cos(time.time() / 5) + 1) / 2, 
 							   (time.time() / 1000) - math.floor((time.time() / 1000))])
-	frame = math.floor(time.time()*4) % 10000
+	frame = math.floor(time.time()*24) % 10000
 
 	return frame, markers
 
@@ -177,7 +177,7 @@ if __name__ == "__main__":
 
 				markers = normalize(markers, args.origin, args.xPos)
 
-				print('Frame:', frame, 'Markers:', markers)
+				#print('Frame:', frame, 'Markers:', markers)
 
 				controller = 0
 				for name in subjectMarkers:
