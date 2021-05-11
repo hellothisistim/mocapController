@@ -56,9 +56,8 @@
           "value": 0.0
         }
       ],
-      "leftModuleId": 64,
       "pos": [
-        64,
+        72,
         0
       ]
     },
@@ -106,7 +105,6 @@
         }
       ],
       "leftModuleId": 62,
-      "rightModuleId": 65,
       "data": {
         "lissajous": 0,
         "external": 0
@@ -218,7 +216,6 @@
         }
       ],
       "leftModuleId": 65,
-      "rightModuleId": 66,
       "data": {
         "lissajous": 0,
         "external": 0
@@ -226,7 +223,7 @@
       "width": 135.0,
       "height": 380.0,
       "pos": [
-        37,
+        39,
         0
       ]
     },
@@ -274,7 +271,6 @@
         }
       ],
       "leftModuleId": 66,
-      "rightModuleId": 26,
       "data": {
         "lissajous": 0,
         "external": 0
@@ -282,7 +278,7 @@
       "width": 135.0,
       "height": 380.0,
       "pos": [
-        55,
+        59,
         0
       ]
     },
@@ -329,7 +325,6 @@
           "value": 0.0
         }
       ],
-      "leftModuleId": 53,
       "rightModuleId": 63,
       "data": {
         "lissajous": 0,
@@ -338,7 +333,7 @@
       "width": 135.0,
       "height": 380.0,
       "pos": [
-        28,
+        30,
         0
       ]
     },
@@ -385,7 +380,6 @@
           "value": 0.0
         }
       ],
-      "leftModuleId": 63,
       "rightModuleId": 64,
       "data": {
         "lissajous": 0,
@@ -394,7 +388,7 @@
       "width": 135.0,
       "height": 380.0,
       "pos": [
-        46,
+        50,
         0
       ]
     },
@@ -425,18 +419,18 @@
           15
         ],
         "values": [
-          0,
-          94,
-          0,
+          127,
+          9,
+          30,
           0,
           127,
-          114,
-          25,
-          126,
-          127,
-          15,
-          21,
+          22,
           111,
+          63,
+          127,
+          118,
+          32,
+          37,
           0,
           0,
           0,
