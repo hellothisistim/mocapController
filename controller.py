@@ -92,12 +92,12 @@ def getMarkerLocations():
 		print("subject names:", subjectNames)
 		
 		for subjectName in subjectNames:
-			print("subject name:", subjectName )
+			#print("subject name:", subjectName )
 			
 			rootSegmentName = client.GetSubjectRootSegmentName(subjectName)
-			print("root segment name:", rootSegmentName)
+			#print("root segment name:", rootSegmentName)
 			globalTranslation = client.GetSegmentGlobalTranslation(subjectName, rootSegmentName)
-			print("global translation:", globalTranslation)
+			#print("global translation:", globalTranslation)
 			globalTranslation = globalTranslation[0]
 			xpos, ypos, zpos = globalTranslation
 			#xpos = round(xpos)
@@ -177,7 +177,7 @@ if __name__ == "__main__":
 
 				markers = normalize(markers, args.origin, args.xPos)
 
-				#print('Frame:', frame, 'Markers:', markers)
+				print('Frame:', frame, 'Markers:', markers)
 
 				controller = 0
 				for name in subjectMarkers:

@@ -111,7 +111,8 @@ def normalize(points, originName, xPosName):
 	outPoints = {}
 	for name in points.keys():
 		outPoints[name] = points[name] * scale
-	return points
+		
+	return outPoints
 
 
 
